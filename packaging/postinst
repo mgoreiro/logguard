@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+configure)
+    install -d -m 755 /var/lib/logguard/archive
+    if [ -d /run/systemd/system ]; then
+        systemctl daemon-reload || true
+        systemctl enable logguard.timer || true
+        systemctl restart logguard.timer || true
+    fi
+    ;;
+esac
+
+exit 0

@@ -1,0 +1,8 @@
+[Unit]
+Description=logguard: keep /var/log from filling up
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/logguard
+Nice=10
+IOSchedulingClass=idle
