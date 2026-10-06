@@ -1,14 +1,22 @@
 #!/bin/sh
 set -e
 
-if [ -d /run/systemd/system ]; then
-    systemctl daemon-reload || true
+if [ "$1" = "remove" ]; then
+    if command -v deb-systemd-helper >/dev/null; then
+        deb-systemd-helper mask logguard.timer >/dev/null || true
+    fi
 fi
 
-case "$1" in
-purge)
+if [ "$1" = "purge" ]; then
+    if command -v deb-systemd-helper >/dev/null; then
+        deb-systemd-helper purge logguard.timer >/dev/null || true
+        deb-systemd-helper unmask logguard.timer >/dev/null || true
+    fi
     rm -rf /var/lib/logguard
-    ;;
-esac
+fi
+
+if [ -d /run/systemd/system ]; then
+    systemctl --system daemon-reload >/dev/null || true
+fi
 
 exit 0

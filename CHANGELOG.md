@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5
+- Paquete `.deb` validado con `lintian --pedantic` (sin errores ni advertencias): scripts del mantenedor con `deb-systemd-helper`/`deb-systemd-invoke`, página de manual `logguard(8)`, changelog comprimido y clave `Documentation` en el servicio.
+- Dependencia nueva: `init-system-helpers (>= 1.54)`.
+
 ## 1.0.4
 - Paquete `.deb`: campo `Maintainer` con los datos del autor y fichero `copyright` con la licencia MIT.
 - Documentación completa (README, CHANGELOG, LICENSE).

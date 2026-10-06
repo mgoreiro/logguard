@@ -11,7 +11,7 @@ Un timer de systemd ejecuta cada minuto un script Python 3 (solo librería está
 Descarga el `.deb` de la [última release](https://github.com/mgoreiro/logguard/releases/latest) e instálalo:
 
 ```bash
-sudo apt install ./logguard_1.0.4_all.deb
+sudo apt install ./logguard_1.0.5_all.deb
 ```
 
 Es `Architecture: all`: sirve igual para armhf y arm64. Depende de `python3 (>= 3.7)` y `systemd`; recomienda `logrotate`. Al instalar se activa y arranca `logguard.timer`. Al actualizar, tu `/etc/logguard.conf` se conserva.

@@ -1,13 +1,8 @@
 #!/bin/sh
 set -e
 
-case "$1" in
-remove|deconfigure)
-    if [ -d /run/systemd/system ]; then
-        systemctl stop logguard.timer logguard.service 2>/dev/null || true
-        systemctl disable logguard.timer 2>/dev/null || true
-    fi
-    ;;
-esac
+if [ -d /run/systemd/system ] && [ "$1" = "remove" ]; then
+    deb-systemd-invoke stop logguard.timer logguard.service >/dev/null || true
+fi
 
 exit 0

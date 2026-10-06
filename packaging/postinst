@@ -1,15 +1,19 @@
 #!/bin/sh
 set -e
 
-case "$1" in
-configure)
+if [ "$1" = "configure" ]; then
     install -d -m 755 /var/lib/logguard/archive
-    if [ -d /run/systemd/system ]; then
-        systemctl daemon-reload || true
-        systemctl enable logguard.timer || true
-        systemctl restart logguard.timer || true
+    # was-enabled defaults to true, so new installations run enable.
+    deb-systemd-helper unmask logguard.timer >/dev/null || true
+    if deb-systemd-helper --quiet was-enabled logguard.timer; then
+        deb-systemd-helper enable logguard.timer >/dev/null || true
+    else
+        deb-systemd-helper update-state logguard.timer >/dev/null || true
     fi
-    ;;
-esac
+    if [ -d /run/systemd/system ]; then
+        systemctl --system daemon-reload >/dev/null || true
+        deb-systemd-invoke restart logguard.timer >/dev/null || true
+    fi
+fi
 
 exit 0

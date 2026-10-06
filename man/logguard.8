@@ -1,0 +1,55 @@
+.TH LOGGUARD 8 "2026" "logguard 1.0.5" "System Administration"
+.SH NAME
+logguard \- keep /var/log from filling up
+.SH SYNOPSIS
+.B logguard
+[\fB\-c\fR \fIFILE\fR] [\fB\-n\fR] [\fB\-v\fR] [\fB\-\-status\fR] [\fB\-\-version\fR]
+.SH DESCRIPTION
+.B logguard
+checks the free space (blocks and inodes, whichever is lower) of
+.IR LOG_DIR .
+It is meant for boards whose /var/log lives on zram or tmpfs. It is run every
+minute by
+.BR logguard.timer (5).
+.PP
+When free space drops below
+.B MIN_FREE_PERCENT
+it moves rotated and stale logs to a persistent archive directory, runs
+.B journalctl \-\-vacuum\-size
+and, as a last resort, saves the tail of the biggest active text logs and
+truncates them, stopping as soon as
+.B TARGET_FREE_PERCENT
+is reached. Archived batches are deleted after
+.B RETENTION_HOURS
+(24 by default). Binary files are never truncated and files open by a running
+process are never moved.
+.SH OPTIONS
+.TP
+.BR \-c ", " \-\-config " " \fIFILE\fR
+Configuration file (default /etc/logguard.conf).
+.TP
+.BR \-n ", " \-\-dry\-run
+Show what would be done without touching anything.
+.TP
+.BR \-v ", " \-\-verbose
+Verbose output.
+.TP
+.B \-\-status
+Print free space and archived batches, then exit.
+.TP
+.B \-\-version
+Print the version and exit.
+.SH EXIT STATUS
+0 on success, 3 if free space is still below the minimum after cleaning.
+.SH FILES
+.TP
+.I /etc/logguard.conf
+Configuration (KEY=VALUE).
+.TP
+.I /var/lib/logguard/archive/<timestamp>/
+Archived batches.
+.SH AUTHOR
+mgoreiro <mgoreiro@gmail.com>. Project page: https://github.com/mgoreiro/logguard
+.SH SEE ALSO
+.BR logrotate (8),
+.BR journalctl (1)

@@ -19,11 +19,12 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 FILES = [
     ("logguard.py", "usr/sbin/logguard", 0o755),
     ("logguard.conf", "etc/logguard.conf", 0o644),
-    ("systemd/logguard.service", "lib/systemd/system/logguard.service", 0o644),
-    ("systemd/logguard.timer", "lib/systemd/system/logguard.timer", 0o644),
+    ("systemd/logguard.service", "usr/lib/systemd/system/logguard.service", 0o644),
+    ("systemd/logguard.timer", "usr/lib/systemd/system/logguard.timer", 0o644),
     ("README.md", "usr/share/doc/logguard/README.md", 0o644),
     ("LICENSE", "usr/share/doc/logguard/copyright", 0o644),
-    ("CHANGELOG.md", "usr/share/doc/logguard/changelog", 0o644),
+    ("packaging/changelog", "usr/share/doc/logguard/changelog.gz", 0o644),
+    ("man/logguard.8", "usr/share/man/man8/logguard.8.gz", 0o644),
 ]
 SCRIPTS = ["postinst", "prerm", "postrm"]
 CONTROL = """\
@@ -32,7 +33,7 @@ Version: {version}
 Architecture: all
 Maintainer: {maintainer}
 Installed-Size: {size}
-Depends: python3 (>= 3.7), systemd
+Depends: python3 (>= 3.7), systemd, init-system-helpers (>= 1.54)
 Recommends: logrotate
 Section: admin
 Priority: optional
@@ -85,6 +86,8 @@ def main():
     data_entries, md5s, size = [], [], 0
     for src, dst, mode in FILES:
         data = open(os.path.join(ROOT, src), "rb").read()
+        if dst.endswith(".gz"):
+            data = gzip.compress(data, 9, mtime=0)
         data_entries.append((dst, data, mode))
         md5s.append("%s  %s" % (hashlib.md5(data).hexdigest(), dst))
         size += len(data)

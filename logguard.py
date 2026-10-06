@@ -24,7 +24,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 DEFAULT_CONFIG = "/etc/logguard.conf"
 LOCK_FILE = "/run/logguard.lock"
 BATCH_FORMAT = "%Y%m%dT%H%M%SZ"

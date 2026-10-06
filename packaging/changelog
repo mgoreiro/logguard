@@ -1,0 +1,43 @@
+logguard (1.0.5) unstable; urgency=medium
+
+  * Package validated with lintian --pedantic: maintainer scripts use deb-
+    systemd-helper/deb-systemd-invoke, add logguard(8) man page, Debian-
+    format changelog and Documentation key in the service.
+  * Fix: the timer was not enabled on install; units now live in
+    /usr/lib/systemd/system.
+  * New dependency: init-system-helpers (>= 1.54).
+
+ -- mgoreiro <mgoreiro@gmail.com>  Tue, 06 Oct 2026 19:40:00 +0000
+
+logguard (1.0.4) unstable; urgency=medium
+
+  * Maintainer field with author data, copyright file (MIT), full documentation.
+
+ -- mgoreiro <mgoreiro@gmail.com>  Tue, 06 Oct 2026 19:25:00 +0000
+
+logguard (1.0.3) unstable; urgency=medium
+
+  * Dry-run: files already simulated as archived are no longer truncated.
+
+ -- mgoreiro <mgoreiro@gmail.com>  Tue, 06 Oct 2026 19:21:00 +0000
+
+logguard (1.0.2) unstable; urgency=medium
+
+  * Archive sysstat per-day files (saNN/sarNN) of any day other than today
+    even if their mtime is recent.
+
+ -- mgoreiro <mgoreiro@gmail.com>  Tue, 06 Oct 2026 19:19:00 +0000
+
+logguard (1.0.1) unstable; urgency=medium
+
+  * Never truncate binary files; archive stale files (STALE_HOURS); never
+    move files open by a process; add --version.
+
+ -- mgoreiro <mgoreiro@gmail.com>  Tue, 06 Oct 2026 19:15:00 +0000
+
+logguard (1.0.0) unstable; urgency=medium
+
+  * Initial release: systemd timer that keeps /var/log from filling up on
+    zram/tmpfs boards.
+
+ -- mgoreiro <mgoreiro@gmail.com>  Tue, 06 Oct 2026 19:00:00 +0000

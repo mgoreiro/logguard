@@ -1,5 +1,6 @@
 [Unit]
 Description=logguard: keep /var/log from filling up
+Documentation=man:logguard(8) https://github.com/mgoreiro/logguard
 
 [Service]
 Type=oneshot
