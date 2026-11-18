@@ -6,6 +6,8 @@ Evita que `/var/log` se llene. Pensado para placas ARM (Orange Pi, Raspberry Pi�
 
 Un timer de systemd ejecuta cada minuto un script Python 3 (solo librería estándar). Si el espacio libre cae por debajo de un umbral (15 % por defecto, configurable en `/etc/logguard.conf`), mueve los logs antiguos a una carpeta persistente fuera de `/var/log`, los conserva 24 horas y después los purga.
 
+![logguard archivando logs antiguos cuando /var/log está casi lleno](https://raw.githubusercontent.com/mgoreiro/logguard/main/docs/demo.gif)
+
 ## Instalación
 
 ### Desde el paquete .deb (recomendado)
