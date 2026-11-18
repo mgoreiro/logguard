@@ -119,4 +119,4 @@ tests/               unit tests
 
 ## License
 
-[MIT](LICENSE) © 2026 Miguel González Oreiro. Change history in [CHANGELOG.md](CHANGELOG.md).
+[MIT](LICENSE) © 2026 mgoreiro. Change history in [CHANGELOG.md](CHANGELOG.md).
